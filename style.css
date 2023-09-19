@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    padding: 10px;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #79108f, #00d4ff);
+}
+
+.todo-app {
+    width: 100%;
+    max-width: 540px;
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+ul li {
+    cursor: pointer;
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px;
+}
+
+.checked {
+    text-decoration: line-through;
+    color: #555;
+}
+
+ul li span {
+    
+    margin-left: 8px;
+
+}
+ul li span:hover {
+    background: #edeef0; 
+}
+
+h6 {
+    font-size: 15px;
+    color: #79108f;
+}
