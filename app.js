@@ -2,7 +2,7 @@ const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
 let count = 0;
-let toDoValues = [];
+const toDoValues = [];
 
 
 
