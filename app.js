@@ -2,6 +2,7 @@ const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
 let count = 0;
+let toDoValues = {};
 
 
 
@@ -17,6 +18,7 @@ function addTask() {
         span.innerHTML = "\u00d7";
         li.appendChild(span);
         counter.innerHTML = count;
+        toDoValues.push(inputBox.value);
     }
     inputBox.value = "";
 }
