@@ -41,7 +41,8 @@ ul li span:hover {
     background: #edeef0; 
 }
 
-h6 {
+#counter {
     font-size: 15px;
     color: #79108f;
+    
 }

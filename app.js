@@ -13,11 +13,9 @@ function addTask() {
         let li = document.createElement("li");
         li.innerHTML = inputBox.value;
         listContainer.appendChild(li);
-        count++;
         const span = document.createElement("span");
         span.innerHTML = "\u00d7";
         li.appendChild(span);
-        counter.innerHTML = count;
         toDoValues.push(inputBox.value);
     }
     inputBox.value = "";
@@ -25,16 +23,36 @@ function addTask() {
 
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "SPAN") {
+        const liContent = e.target.parentElement.textContent;
+        const spanContent = e.target.textContent;
+        const liText = liContent.replace(spanContent, "").trim();
+        const indexOfText = toDoValues.indexOf(liText);
+        console.log(indexOfText);
+        if(indexOfText !== -1) {
+            toDoValues.splice(indexOfText, 1);
+        }
+        if(e.target.parentElement.classList.contains("checked")){
+            count --;
+            counter.innerHTML = count;
+        }
         e.target.parentElement.remove();
-        const index = toDoValues.indexOf(e.target.parentElement);
-        toDoValues.splice(index, 1);
-        count--;
-        counter.innerHTML = count;
+        
     }
 })
 
 listContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "LI") {
-        e.target.classList.toggle("checked");
+        if ( e.target.classList.contains("checked")) {
+            e.target.classList.remove("checked");
+            count--;
+        } else {
+            e.target.classList.add("checked");
+            count++;
+        }
+        if (count == 0) {
+            counter.innerHTML = "";
+        }else {
+        counter.innerHTML = count; }
     }
+    
 })
