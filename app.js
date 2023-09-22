@@ -11,9 +11,11 @@ function addTask() {
     if (inputBox.value === "") {
         alert("Du måste skriva något!");
     } else {
-        let li = document.createElement("li");
+        const li = document.createElement("li");
+
         li.innerHTML = inputBox.value;
-        let boxText = li.innerHTML;
+        const boxText = li.innerHTML;
+
         listContainer.appendChild(li);
         span = document.createElement("span");
         span.innerHTML = "\u00d7";
@@ -28,7 +30,7 @@ listContainer.addEventListener("click", function(e){
         const liContent = e.target.parentElement.textContent;
         const spanContent = e.target.textContent;
         const liText = liContent.replace(spanContent, "").trim();
-        console.log(liText);
+    
         delete toDoValues[liText];
         
         if(e.target.parentElement.classList.contains("checked")){
