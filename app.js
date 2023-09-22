@@ -2,7 +2,8 @@ const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
 let count = 0;
-const toDoValues = [];
+const toDoValues = {};
+let span = "";
 
 
 
@@ -12,11 +13,12 @@ function addTask() {
     } else {
         let li = document.createElement("li");
         li.innerHTML = inputBox.value;
+        let boxText = li.innerHTML;
         listContainer.appendChild(li);
-        const span = document.createElement("span");
+        span = document.createElement("span");
         span.innerHTML = "\u00d7";
         li.appendChild(span);
-        toDoValues.push(inputBox.value);
+        toDoValues[boxText] = false;
     }
     inputBox.value = "";
 }
@@ -26,11 +28,9 @@ listContainer.addEventListener("click", function(e){
         const liContent = e.target.parentElement.textContent;
         const spanContent = e.target.textContent;
         const liText = liContent.replace(spanContent, "").trim();
-        const indexOfText = toDoValues.indexOf(liText);
-        console.log(indexOfText);
-        if(indexOfText !== -1) {
-            toDoValues.splice(indexOfText, 1);
-        }
+        console.log(liText);
+        delete toDoValues[liText];
+        
         if(e.target.parentElement.classList.contains("checked")){
             count --;
             counter.innerHTML = count;
@@ -42,11 +42,18 @@ listContainer.addEventListener("click", function(e){
 
 listContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "LI") {
+        const spanContent = span.textContent;
+        const inputContent = e.target.textContent;
+        const input = inputContent.replace(spanContent, "").trim();
+
+        console.log(input);
         if ( e.target.classList.contains("checked")) {
             e.target.classList.remove("checked");
+            toDoValues[input] = false;
             count--;
         } else {
             e.target.classList.add("checked");
+            toDoValues[input] = true;
             count++;
         }
         if (count == 0) {
