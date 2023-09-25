@@ -20,7 +20,7 @@ function addTask() {
 
         listContainer.appendChild(li);
         span = document.createElement("span");
-        span.innerHTML = "\u00d7";
+        span.classList.add("fa", "fa-trash")
         li.appendChild(span);
         toDoValues[boxText] = false;
     }
@@ -31,9 +31,7 @@ function addTask() {
 
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "SPAN") {
-        const liContent = e.target.parentElement.textContent;
-        const spanContent = e.target.textContent;
-        const liText = liContent.replace(spanContent, "").trim();
+        const liText = e.target.parentElement.textContent;
     
         delete toDoValues[liText];
         
@@ -50,10 +48,8 @@ listContainer.addEventListener("click", function(e){
 
 listContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "LI") {
-        const spanContent = span.textContent;
-        const inputContent = e.target.textContent;
-        const input = inputContent.replace(spanContent, "").trim();
-
+        
+        const input = e.target.textContent;
         
         if ( e.target.classList.contains("checked")) {
             e.target.classList.remove("checked");
