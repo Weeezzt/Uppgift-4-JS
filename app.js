@@ -1,4 +1,4 @@
-// Här skapar jag variabeln count som kommer användas för att öka och misnka värdet på countern. Skapar även varaibler av html elementen med diverse ID. Skapar ett object där jag sparar todos och om dom är gjorda eller ej. även en en variabel span med tom string som används till kryssloggan bredvid texten.
+// Här skapar jag variabeln count som kommer användas för att öka och misnka värdet på countern. Skapar även variabler av html elementen med diverse ID. Skapar ett object där jag sparar todos och om dom är gjorda eller ej, true/false. även en variabel span med tom string som används till trashcan-loggan bredvid texten.
 
 const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
@@ -7,7 +7,8 @@ let count = 0;
 const toDoValues = {};
 let span = "";
 
-//Här skapar jag en function som vid tryck på min button körs. Om man inte ifyltt ett värde så kommer en alert. Annars så skapas ett listelement och innehållet får samma innehåll som det man skrev i inputen. Sen skapar jag en variabel som får stringen som li innehöll, det för jag sedan över till vårt object. använder appendchild på listcontainer med vår skapade li ocjh sedan skapar jag en span tag som får värdet av koden till ett kryss. Gör samma sak där och låter det bli child till li. Ger sedan värdet false till vår string som vi lagt till i objektet. Tillsist så tömmer jag vår input.
+//Här skapar jag en function som vid tryck på min button körs. Om man inte ifyltt ett värde så kommer en alert. Annars så skapas ett listelement och innehållet får samma innehåll som det man skrev i inputen. Sen skapar jag en variabel som får stringen som li innehöll, det för jag sedan över till vårt object. använder appendchild på listcontainer med vår skapade li ocjh sedan skapar jag en span tag som får klassen som länkar den till en icon. Gör samma sak där och låter det bli child till li. Ger sedan värdet false till vår string som vi lagt till i objektet. Tillsist så tömmer jag vår input.
+counter.innerHTML = count;
 
 function addTask() {
     if (inputBox.value === "") {
@@ -27,7 +28,7 @@ function addTask() {
     inputBox.value = "";
 }
 
-// Om man clickar på spanen (krysset) så tar jag först parentelementets innehåll och ger det till en variabel och sedan tar jag innehållet av vår span och ger det till en annan variabel. Jag ger sedan variabeln litext värdet av licontent - spancontent och kan då ta bort den ur vårt objekt. Om den texten hade klassen checked så minskar vi count med 1.
+// Om man clickar på spanen (krysset) så tar jag först parentelementets innehåll och ger det till en variabel som jag sedan raderar ur vårt object. Om texten som hörde ihop med soptunne-loggan hade klassen checked så minskar count med 1 sen gör jag så att counter visar värdet av count. Och tar till sist bort texten från sidan. 
 
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "SPAN") {
@@ -44,7 +45,7 @@ listContainer.addEventListener("click", function(e){
     }
 })
 
-//Om man klickar på själva texten så skapar vi variabler som har värdet av vår span och hela raden och en text - span. om den har klassen checked så tar vi bort klassen checked och minskar count med 1 om den inte har klassen checked så ger vi den det och ökar count med 1. om count är lika med 0 så tömmer ger vi counter ett värde på en tom string. Sen ger vi värdet i counter värdet count så det visas.
+//Om  man klickar på texten så ger jag variabeln input värdet av texten. Om texten hade klassen checked så tar jag bort den och ger den false i vårt object samt minskar count med 1. om den däremot inte hade klassen checked så ger vi den klassen checked och lägger den till true i vårt object och ökar count med 1. sen ger vi counter värdet av count och visar det på sidan.
 
 listContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "LI") {
@@ -60,10 +61,7 @@ listContainer.addEventListener("click", function(e) {
             toDoValues[input] = true;
             count++;
         }
-        if (count == 0) {
-            counter.innerHTML = "";
-        }else {
-        counter.innerHTML = count; }
+        counter.innerHTML = count;
     }
     
 })
