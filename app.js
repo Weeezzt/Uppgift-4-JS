@@ -1,57 +1,85 @@
-// Här skapar jag variabeln count som kommer användas för att öka och misnka värdet på countern. Skapar även variabler av html elementen med diverse ID. Skapar ett object där jag sparar todos och om dom är gjorda eller ej, true/false. även en variabel span med tom string som används till trashcan-loggan bredvid texten.
+// Declare some variables and give them values from the html file
 
 const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
-let count = 0;
-const todoArray = [];
-let span = "";
 const info = document.getElementById("info");
 
+//Declare variable for to count the amount of todos done, start with 0
+let count = 0;
+//declare an array to hold the objects
+const todoArray = [];
+// declare a span and give it the value of an empty string
+let span = "";
 
+
+//Make a function to change status from false to true and vice versa.
 function changeStatus(text, completed) {
 
     // find index
-    let index = todoArray.map(t => t.name).indexOf(text);
+    const index = todoArray.map(t => t.name).indexOf(text);
 
     // change status
 
     todoArray[index].status = completed;
 }
 
+//a function to find index for removal of object from array
 function removeObject(input) {
   // find the index
 
-    let index = todoArray.map(t => t.name).indexOf(input);
+    const index = todoArray.map(t => t.name).indexOf(input);
     return index;
 }
 
-//Här skapar jag en function som vid tryck på min button körs. Om man inte ifyltt ett värde så kommer en alert. Annars så skapas ett listelement och innehållet får samma innehåll som det man skrev i inputen. Sen skapar jag en variabel som får stringen som li innehöll, det för jag sedan över till vårt object. använder appendchild på listcontainer med vår skapade li ocjh sedan skapar jag en span tag som får klassen som länkar den till en icon. Gör samma sak där och låter det bli child till li. Ger sedan värdet false till vår string som vi lagt till i objektet. Tillsist så tömmer jag vår input.
+//Make it so that count gets shown on the page at the right spot.
 counter.innerHTML = count;
 
+//Function for the creation of the todos
 function addTask() {
+
+    //If theres nothing in the inputbox, a text shows up to tell the user.
     if (inputBox.value === "") {
+
         info.innerText = "Du måste skriva något!";
+
     } else {
+
+        //Create new element, a li tag. 
+
         const li = document.createElement("li");
+
+        // empty the text that told you to fill in the input
         info.innerText = "";
 
+        // give the innerText of li the value of what was typed in the input. append li to the listcontainer
         li.innerText = inputBox.value;
         const boxText = li.innerText;
-       
         listContainer.appendChild(li);
+
+        //Create a span element, give the span the class for a icon. 
+        //append span to the li.
+
         span = document.createElement("span");
         span.classList.add("fa", "fa-trash")
         li.appendChild(span);
+
+        //Create the object for the name of string and status for if its done or not.
+        //Give the name a value of the inputvalue via boxText variable.
+        //Push that object in to the array
+
+
         const toDoValues = {name: "", status: false};
         toDoValues.name = boxText;
         todoArray.push(toDoValues);
         console.log(todoArray);
     }
+
+    //Empty the input
     inputBox.value = "";
 }
 
-//Lagt till eventlistener på inputboxen som lyssnar efter enter keydown.
+//Added an eventlistener so that you can use enter as well as your mouse.
 
 inputBox.addEventListener("keydown", function(event) {
     if(event.key === "Enter") {
@@ -59,47 +87,63 @@ inputBox.addEventListener("keydown", function(event) {
     }
 })
 
-// Om man clickar på spanen (krysset) så tar jag först parentelementets innehåll och ger det till en variabel som jag sedan raderar ur vårt object. Om texten som hörde ihop med soptunne-loggan hade klassen checked så minskar count med 1 sen gör jag så att counter visar värdet av count. Och tar till sist bort texten från sidan. 
+
+//Eventlistener that listens for clicks on the Span element.
 
 listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "SPAN") {
+
+        //Made a variable that gets the TextContent of the parent element of the span -- the li.
+
+
         const liText = e.target.parentElement.textContent;
     
-        //remove the correct object from the array
+        //remove the correct object from the array.
+        //Use a function to ge the index, then use splice to remove the correct object.
 
         const index = removeObject(liText);
-
-
         todoArray.splice(index, 1);
 
-        
+        //If the element that was remove had the class checked, remove 1 from count.
+        //Give the innerHTML of counter the new value of count.
+
         if(e.target.parentElement.classList.contains("checked")){
             count --;
             counter.innerHTML = count;
         }
+
+        //Remove the parenet element of the span.
         e.target.parentElement.remove();
         
     }
 })
 
-//Om  man klickar på texten så ger jag variabeln input värdet av texten. Om texten hade klassen checked så tar jag bort den och ger den false i vårt object samt minskar count med 1. om den däremot inte hade klassen checked så ger vi den klassen checked och lägger den till true i vårt object och ökar count med 1. sen ger vi counter värdet av count och visar det på sidan.
+//An eventlistener that listens for click on the li.
 
 listContainer.addEventListener("click", function(e) {
     if(e.target.tagName === "LI") {
         
+        //Declare a variable input and give it the value of the TextContent of the clicked li.
+
         const input = e.target.textContent;
         
+        //If the clicked li has the class of checked, remove checked.
+
         if ( e.target.classList.contains("checked")) {
+
             e.target.classList.remove("checked");
-            //Change status to false
+            //Change status to false, and remove 1 from count.
             changeStatus(input, false);
             count--;
         } else {
+            //Add the class checked to the clicked li.
             e.target.classList.add("checked");
-            //change status to true
+            //change status to true, and add 1 to count.
             changeStatus(input, true);
             count++;
         }
+
+        //Give the innerHTML of counter the new value of count.
         counter.innerHTML = count;
     }
     
