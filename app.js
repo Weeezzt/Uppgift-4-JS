@@ -4,9 +4,27 @@ const inputBox = document.getElementById("input-text");
 const listContainer = document.getElementById("list-container");
 const counter = document.getElementById("counter");
 let count = 0;
-const toDoValues = {};
+const todoArray = [];
 let span = "";
 const info = document.getElementById("info");
+
+
+function changeStatus(text, completed) {
+
+    // find index
+    let index = todoArray.map(t => t.name).indexOf(text);
+
+    // change status
+
+    todoArray[index].status = completed;
+}
+
+function removeObject(input) {
+  // find the index
+
+    let index = todoArray.map(t => t.name).indexOf(input);
+    return index;
+}
 
 //Här skapar jag en function som vid tryck på min button körs. Om man inte ifyltt ett värde så kommer en alert. Annars så skapas ett listelement och innehållet får samma innehåll som det man skrev i inputen. Sen skapar jag en variabel som får stringen som li innehöll, det för jag sedan över till vårt object. använder appendchild på listcontainer med vår skapade li ocjh sedan skapar jag en span tag som får klassen som länkar den till en icon. Gör samma sak där och låter det bli child till li. Ger sedan värdet false till vår string som vi lagt till i objektet. Tillsist så tömmer jag vår input.
 counter.innerHTML = count;
@@ -19,13 +37,16 @@ function addTask() {
         info.innerText = "";
 
         li.innerText = inputBox.value;
-        const boxText = li.innerHTML;
-
+        const boxText = li.innerText;
+       
         listContainer.appendChild(li);
         span = document.createElement("span");
         span.classList.add("fa", "fa-trash")
         li.appendChild(span);
-        toDoValues[boxText] = false;
+        const toDoValues = {name: "", status: false};
+        toDoValues.name = boxText;
+        todoArray.push(toDoValues);
+        console.log(todoArray);
     }
     inputBox.value = "";
 }
@@ -44,7 +65,13 @@ listContainer.addEventListener("click", function(e){
     if(e.target.tagName === "SPAN") {
         const liText = e.target.parentElement.textContent;
     
-        delete toDoValues[liText];
+        //remove the correct object from the array
+
+        const index = removeObject(liText);
+
+
+        todoArray.splice(index, 1);
+
         
         if(e.target.parentElement.classList.contains("checked")){
             count --;
@@ -64,11 +91,13 @@ listContainer.addEventListener("click", function(e) {
         
         if ( e.target.classList.contains("checked")) {
             e.target.classList.remove("checked");
-            toDoValues[input] = false;
+            //Change status to false
+            changeStatus(input, false);
             count--;
         } else {
             e.target.classList.add("checked");
-            toDoValues[input] = true;
+            //change status to true
+            changeStatus(input, true);
             count++;
         }
         counter.innerHTML = count;
