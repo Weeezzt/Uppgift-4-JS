@@ -18,7 +18,7 @@ function addTask() {
         const li = document.createElement("li");
         info.innerText = "";
 
-        li.innerHTML = inputBox.value;
+        li.innerText = inputBox.value;
         const boxText = li.innerHTML;
 
         listContainer.appendChild(li);
