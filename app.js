@@ -30,6 +30,14 @@ function addTask() {
     inputBox.value = "";
 }
 
+//Lagt till eventlistener på inputboxen som lyssnar efter enter keydown.
+
+inputBox.addEventListener("keydown", function(event) {
+    if(event.key === "Enter") {
+       addTask();
+    }
+})
+
 // Om man clickar på spanen (krysset) så tar jag först parentelementets innehåll och ger det till en variabel som jag sedan raderar ur vårt object. Om texten som hörde ihop med soptunne-loggan hade klassen checked så minskar count med 1 sen gör jag så att counter visar värdet av count. Och tar till sist bort texten från sidan. 
 
 listContainer.addEventListener("click", function(e){
