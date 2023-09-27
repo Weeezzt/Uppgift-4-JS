@@ -6,15 +6,17 @@ const counter = document.getElementById("counter");
 let count = 0;
 const toDoValues = {};
 let span = "";
+const info = document.getElementById("info");
 
 //Här skapar jag en function som vid tryck på min button körs. Om man inte ifyltt ett värde så kommer en alert. Annars så skapas ett listelement och innehållet får samma innehåll som det man skrev i inputen. Sen skapar jag en variabel som får stringen som li innehöll, det för jag sedan över till vårt object. använder appendchild på listcontainer med vår skapade li ocjh sedan skapar jag en span tag som får klassen som länkar den till en icon. Gör samma sak där och låter det bli child till li. Ger sedan värdet false till vår string som vi lagt till i objektet. Tillsist så tömmer jag vår input.
 counter.innerHTML = count;
 
 function addTask() {
     if (inputBox.value === "") {
-        alert("Du måste skriva något!");
+        info.innerText = "Du måste skriva något!";
     } else {
         const li = document.createElement("li");
+        info.innerText = "";
 
         li.innerHTML = inputBox.value;
         const boxText = li.innerHTML;
