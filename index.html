@@ -10,16 +10,17 @@
 <body>
     <div class="container">
         <div class="todo-app">
-            <h1>Skapa en To-Do!</h1> 
-            <input type="text" id="input-text" placeholder="Fyll i en Todo"> 
-            <button onclick="addTask()">Lägg till</button>
+            <h1 class="header">My ToDo</h1> 
+            <p class="todos-done">
+                <span id="counter"></span> completed 
+            </p>
+            <div class="input-button">
+            <input type="text" id="input-text" placeholder=""> 
+            <button onclick="addTask()">OK</button>
+            </div>
+            <small class="info" id="info"></small>
             <ul id="list-container">
             </ul>
-            <small id="info"></small>
-            <br>
-            <p class="todos-done">
-                Antal uppgifter gjorda: <span id="counter"></span>
-            </p>
         </div>
     </div>
     <script src="app.js"></script>

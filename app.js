@@ -34,20 +34,25 @@ function removeObject(input) {
 
 //Make it so that count gets shown on the page at the right spot.
 counter.innerHTML = count;
-
 //Function for the creation of the todos
 function addTask() {
 
     //If theres nothing in the inputbox, a text shows up to tell the user.
     if (inputBox.value === "") {
-
-        info.innerText = "Du måste skriva något!";
+        
+        info.classList.add("blinky")
+        info.innerText = "Input must not be empty";
+        setTimeout(() => {
+            info.classList.remove("blinky"); 
+        }, 700);
+        
 
     } else {
 
         //Create new element, a li tag. 
 
         const li = document.createElement("li");
+        li.classList.add("liFade");
 
         // empty the text that told you to fill in the input
         info.innerText = "";
@@ -61,7 +66,7 @@ function addTask() {
         //append span to the li.
 
         span = document.createElement("span");
-        span.classList.add("fa", "fa-trash")
+        span.classList.add("fa", "fa-trash-o");
         li.appendChild(span);
 
         //Create the object for the name of string and status for if its done or not.
