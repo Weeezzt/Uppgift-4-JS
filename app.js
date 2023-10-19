@@ -50,9 +50,9 @@ function addTask() {
     } else {
 
         //Create new element, a li tag. 
-
+        const liDiv = document.createElement("div")
         const li = document.createElement("li");
-        li.classList.add("liFade");
+        liDiv.classList.add("liFade");
 
         // empty the text that told you to fill in the input
         info.innerText = "";
@@ -60,14 +60,16 @@ function addTask() {
         // give the innerText of li the value of what was typed in the input. append li to the listcontainer
         li.innerText = inputBox.value;
         const boxText = li.innerText;
-        listContainer.appendChild(li);
+        liDiv.appendChild(li)
+        listContainer.appendChild(liDiv);
 
         //Create a span element, give the span the class for a icon. 
         //append span to the li.
 
         span = document.createElement("span");
-        span.classList.add("fa", "fa-trash-o");
-        li.appendChild(span);
+        span.innerHTML= "\uD83D\uDDD1";
+        liDiv.appendChild(span);
+        liDiv.classList.add("li-div");
 
         //Create the object for the name of string and status for if its done or not.
         //Give the name a value of the inputvalue via boxText variable.

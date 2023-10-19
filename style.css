@@ -99,7 +99,11 @@ ul li {
 }
 
 
-
+.li-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 ul li:hover {
     text-decoration: line-through;
