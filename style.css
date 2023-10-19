@@ -103,6 +103,7 @@ ul li {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 ul li:hover {
